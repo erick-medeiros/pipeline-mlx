@@ -26,5 +26,6 @@ leaks:
 install:
 	sudo apt update -y && sudo apt upgrade -y
 	sudo apt install gcc make xorg libxext-dev libbsd-dev
+	sudo apt install valgrind
 
 .PHONY: all clean re leaks
