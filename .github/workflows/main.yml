@@ -13,10 +13,12 @@ jobs:
     - uses: actions/checkout@v3
     - name: make install
       run: make install
+    - name: xvfb
+      run: sudo apt install xvfb
     - name: make
       run: make
     - name: make leaks
-      run: make leaks
+      run: xvfb-run valgrind -q --leak-check=full --show-leak-kinds=all --track-fds=yes --track-origins=yes ./program.out
 
   # check:
   #   runs-on: ubuntu-latest
