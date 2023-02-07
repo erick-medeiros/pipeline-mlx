@@ -11,19 +11,15 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
-    - name: make install
-      run: make install
-    - name: xvfb
+    - name: update ubuntu
+      run: sudo apt update -y && sudo apt upgrade -y
+    - name: install dependencies MiniLibX
+      run: sudo apt install gcc make xorg libxext-dev libbsd-dev
+    - name: install valgrind
+      run: sudo apt install valgrind
+    - name: install xvfb
       run: sudo apt install xvfb
     - name: make
       run: make
-    - name: make leaks
-      run: xvfb-run valgrind -q --leak-check=full --show-leak-kinds=all --track-fds=yes --track-origins=yes ./program.out
-
-  # check:
-  #   runs-on: ubuntu-latest
-  #   needs: build
-  #   steps:
-  #   - uses: actions/checkout@v3
-  #   - name: make leaks
-  #     run: make leaks
+    - name: run
+      run: xvfb-run valgrind -q --leak-check=full --show-leak-kinds=all --track-origins=yes ./program.out

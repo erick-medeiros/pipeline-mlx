@@ -1,10 +1,11 @@
 NAME = program.out
-CFLAGS = -Iminilibx
-LDFLAGS = -Lminilibx
+MINILIBX = minilibx
+CFLAGS = -I$(MINILIBX)
+LDFLAGS = -L$(MINILIBX)
 LDLIBS = -lmlx -lXext -lX11
 
 VALGRIND = valgrind -q --leak-check=full --show-leak-kinds=all \
-	--track-fds=yes --track-origins=yes
+	--track-origins=yes
 
 all: $(NAME)
 
@@ -12,7 +13,7 @@ all: $(NAME)
 	gcc $(CFLAGS) -c $< -o $@
 
 $(NAME): main.o
-	make -C minilibx
+	make -C $(MINILIBX)
 	gcc $(LDFLAGS) -o $(NAME) main.o $(LDLIBS)
 
 clean:
@@ -22,10 +23,5 @@ re: clean all
 
 leaks: $(NAME)
 	$(VALGRIND) ./$(NAME)
-
-install:
-	sudo apt update -y && sudo apt upgrade -y
-	sudo apt install gcc make xorg libxext-dev libbsd-dev
-	sudo apt install valgrind
 
 .PHONY: all clean re leaks
