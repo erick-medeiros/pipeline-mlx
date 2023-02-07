@@ -24,6 +24,6 @@ leaks:
 	$(VALGRIND) ./$(NAME)
 
 install:
-	apt-get install gcc make xorg libxext-dev libbsd-dev
+	sudo apt install gcc make xorg libxext-dev libbsd-dev
 
 .PHONY: all clean re leaks
