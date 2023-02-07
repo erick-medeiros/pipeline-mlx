@@ -20,7 +20,7 @@ clean:
 
 re: clean all
 
-leaks:
+leaks: $(NAME)
 	$(VALGRIND) ./$(NAME)
 
 install:
