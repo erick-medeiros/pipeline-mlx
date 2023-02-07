@@ -23,4 +23,7 @@ re: clean all
 leaks:
 	$(VALGRIND) ./$(NAME)
 
+install:
+	apt-get install gcc make xorg libxext-dev libbsd-dev
+
 .PHONY: all clean re leaks
