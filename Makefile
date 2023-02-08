@@ -1,7 +1,5 @@
 NAME = program.out
-MINILIBX = minilibx
-CFLAGS = -I$(MINILIBX)
-LDFLAGS = -L$(MINILIBX)
+CFLAGS = -g
 LDLIBS = -lmlx -lXext -lX11
 
 VALGRIND = valgrind -q --leak-check=full --show-leak-kinds=all \
@@ -13,8 +11,7 @@ all: $(NAME)
 	gcc $(CFLAGS) -c $< -o $@
 
 $(NAME): main.o
-	make -C $(MINILIBX)
-	gcc $(LDFLAGS) -o $(NAME) main.o $(LDLIBS)
+	gcc -o $(NAME) main.o $(LDLIBS)
 
 clean:
 	rm -r *.o $(NAME)
