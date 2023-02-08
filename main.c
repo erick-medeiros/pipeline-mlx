@@ -14,7 +14,7 @@ int main()
 	mlx = mlx_init();
 	win = mlx_new_window(mlx, WINDOW_W, WINDOW_H, WINDOW_NAME);
 	// mlx_loop(mlx);
-	sleep(2);
+	sleep(1);
 	mlx_destroy_window(mlx, win);
 	mlx_destroy_display(mlx);
 	free(mlx);
