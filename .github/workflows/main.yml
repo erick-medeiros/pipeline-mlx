@@ -11,15 +11,36 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
-    - name: update ubuntu
-      run: sudo apt update -y && sudo apt upgrade -y
-    - name: install dependencies MiniLibX
-      run: sudo apt install gcc make xorg libxext-dev libbsd-dev
-    - name: install valgrind
-      run: sudo apt install valgrind
-    - name: install xvfb
-      run: sudo apt install xvfb
+
+    - name: cache apt
+      uses: actions/cache@v3
+      id: cache-apt
+      with:
+        path: "~/cache-apt"
+        key: cache-apt
+
+    - name: install dependencies
+      env:
+        CACHE_HIT: ${{steps.cache-apt.outputs.cache-hit}}
+        MLX_PATH: ./minilibx
+      run: |
+          if [[ "$CACHE_HIT" == 'true' ]]; then
+            sudo cp --verbose --force --recursive ~/cache-apt/* /
+          else
+            sudo apt-get update -y && sudo apt-get upgrade -y
+            sudo apt-get install gcc make xorg libxext-dev libbsd-dev xvfb valgrind
+            mkdir -p ~/cache-apt
+            for dep in gcc make xorg libxext-dev libbsd-dev xvfb valgrind libmd-dev libc6-dbg; do
+                sudo dpkg -L $dep |
+                while IFS= read -r f; do if test -f $f; then echo $f; fi; done |
+                sudo xargs cp --parents --target-directory ~/cache-apt/
+            done
+            cd $MLX_PATH && make && sudo bash ./install
+            find /usr/local -type f | grep mlx | sudo xargs cp --parents --target-directory ~/cache-apt/
+          fi
+
     - name: make
       run: make
+
     - name: run
-      run: xvfb-run valgrind -q --leak-check=full --show-leak-kinds=all --track-origins=yes ./program.out
+      run: xvfb-run valgrind -q --error-exitcode=1 --leak-check=full --show-leak-kinds=all --track-origins=yes ./program.out
