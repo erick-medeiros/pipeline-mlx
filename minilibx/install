@@ -1,0 +1,7 @@
+make
+
+sudo cp libmlx.a libmlx_*.a /usr/local/lib/
+sudo cp mlx.h /usr/local/include/
+sudo mkdir -p /usr/local/man/man3 /usr/local/man/man1
+sudo cp man/man1/mlx*.1 /usr/local/man/man1/
+sudo cp man/man3/mlx*.3 /usr/local/man/man3/

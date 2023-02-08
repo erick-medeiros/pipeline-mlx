@@ -1,0 +1,4 @@
+sudo rm /usr/local/lib/libmlx.a /usr/local/lib/libmlx_*.a
+sudo rm /usr/local/include/mlx.h
+sudo rm /usr/local/man/man1/mlx*.1
+sudo rm /usr/local/man/man3/mlx*.3
