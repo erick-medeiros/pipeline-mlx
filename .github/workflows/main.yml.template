@@ -22,4 +22,4 @@ jobs:
     - name: make
       run: make
     - name: run
-      run: xvfb-run valgrind -q --leak-check=full --show-leak-kinds=all --track-origins=yes ./program.out
+      run: xvfb-run valgrind -q --error-exitcode=1 --leak-check=full --show-leak-kinds=all --track-origins=yes ./program.out
