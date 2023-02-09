@@ -6,7 +6,7 @@
 /*   By: eandre-f <eandre-f@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 20:51:26 by eandre-f          #+#    #+#             */
-/*   Updated: 2023/02/09 19:20:05 by eandre-f         ###   ########.fr       */
+/*   Updated: 2023/02/09 20:47:17 by eandre-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,8 @@ int	main(int argc, char *argv[])
 	mlx = mlx_init();
 	win = mlx_new_window(mlx, WINDOW_WIDTH, WINDOW_HEIGHT, WINDOW_NAME);
 	mlx_hook(win, DestroyNotify, NoEventMask, &mlx_loop_end, mlx);
-	mlx_key_hook(win, &handle_key, mlx);
+	mlx_hook(win, KeyRelease, KeyReleaseMask, &handle_key, mlx);
+	mlx_hook(win, KeyPress, KeyPressMask, &handle_key, mlx);
 	if (argc > 1)
 		sleep(atoi(argv[1]));
 	else
