@@ -6,7 +6,7 @@
 /*   By: eandre-f <eandre-f@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 20:51:26 by eandre-f          #+#    #+#             */
-/*   Updated: 2023/02/09 16:29:58 by eandre-f         ###   ########.fr       */
+/*   Updated: 2023/02/09 19:20:05 by eandre-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,18 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include <X11/X.h>
+#include <X11/keysym.h>
 
 #define WINDOW_WIDTH 100
 #define WINDOW_HEIGHT 100
 #define WINDOW_NAME "program"
+
+int	handle_key(int keycode, void *mlx)
+{
+	if (keycode == XK_Escape)
+		mlx_loop_end(mlx);
+	return (0);
+}
 
 int	main(int argc, char *argv[])
 {
@@ -27,6 +35,7 @@ int	main(int argc, char *argv[])
 	mlx = mlx_init();
 	win = mlx_new_window(mlx, WINDOW_WIDTH, WINDOW_HEIGHT, WINDOW_NAME);
 	mlx_hook(win, DestroyNotify, NoEventMask, &mlx_loop_end, mlx);
+	mlx_key_hook(win, &handle_key, mlx);
 	if (argc > 1)
 		sleep(atoi(argv[1]));
 	else
