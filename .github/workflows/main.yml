@@ -23,6 +23,7 @@ jobs:
         CACHE_HIT: ${{steps.cache-apt.outputs.cache-hit}}
         MLX_PATH: ./minilibx
       run: |
+          echo $CACHE_HIT
           if [[ "$CACHE_HIT" == 'false' ]]; then
             sudo apt-get update -qq -y
             sudo apt-get install -qq gcc make xorg libxext-dev libbsd-dev xvfb valgrind xdotool
