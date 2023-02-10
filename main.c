@@ -6,7 +6,7 @@
 /*   By: eandre-f <eandre-f@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 20:51:26 by eandre-f          #+#    #+#             */
-/*   Updated: 2023/02/09 20:47:17 by eandre-f         ###   ########.fr       */
+/*   Updated: 2023/02/10 10:06:08 by eandre-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,5 +43,5 @@ int	main(int argc, char *argv[])
 		mlx_loop(mlx);
 	mlx_destroy_window(mlx, win);
 	mlx_destroy_display(mlx);
-	free(mlx);
+	//free(mlx);
 }
