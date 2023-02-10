@@ -44,4 +44,10 @@ jobs:
       run: make
 
     - name: run
-      run: xvfb-run valgrind -q --error-exitcode=1 --leak-check=full --show-leak-kinds=all --track-origins=yes ./program.out 1
+      env:
+        DISPLAY: ":99"
+        WINDOW_NAME: "program"
+      run: |
+        Xvfb $DISPLAY -screen 0 1080x720x24 &
+        valgrind -q --error-exitcode=1 --leak-check=full --show-leak-kinds=all --track-origins=yes ./program.out &
+        xdotool search --name $WINDOW_NAME windowfocus key Escape
