@@ -29,9 +29,9 @@ jobs:
             sudo cp --verbose --force --recursive ~/cache-apt/* /
           else
             sudo apt-get update -y && sudo apt-get upgrade -y
-            sudo apt-get install gcc make xorg libxext-dev libbsd-dev xvfb valgrind
+            sudo apt-get install gcc make xorg libxext-dev libbsd-dev xvfb valgrind xdotool
             mkdir -p ~/cache-apt
-            for dep in gcc make xorg libxext-dev libbsd-dev xvfb valgrind libmd-dev libc6-dbg; do
+            for dep in gcc make xorg libxext-dev libbsd-dev xvfb valgrind libmd-dev libc6-dbg xdotool; do
                 sudo dpkg -L $dep |
                 while IFS= read -r f; do if test -f $f; then echo $f; fi; done |
                 sudo xargs cp --parents --target-directory ~/cache-apt/
