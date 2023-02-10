@@ -28,8 +28,8 @@ jobs:
           if [[ "$CACHE_HIT" == 'true' ]]; then
             sudo cp --verbose --force --recursive ~/cache-apt/* /
           else
-            sudo apt-get update -y && sudo apt-get upgrade -y
-            sudo apt-get install gcc make xorg libxext-dev libbsd-dev xvfb valgrind xdotool
+            sudo apt-get update -qq -y
+            sudo apt-get install -qq gcc make xorg libxext-dev libbsd-dev xvfb valgrind xdotool
             mkdir -p ~/cache-apt
             for dep in gcc make xorg libxext-dev libbsd-dev xvfb valgrind libmd-dev libc6-dbg xdotool; do
                 sudo dpkg -L $dep |
