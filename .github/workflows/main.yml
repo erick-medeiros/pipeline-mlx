@@ -10,6 +10,7 @@ jobs:
   install:
     timeout-minutes: 10
     runs-on: ubuntu-latest
+    steps:
     - uses: actions/checkout@v3
     - name: cache apt
       uses: actions/cache@v3
