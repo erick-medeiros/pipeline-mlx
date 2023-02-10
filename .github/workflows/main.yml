@@ -24,8 +24,9 @@ jobs:
         CACHE_HIT: ${{steps.cache-apt.outputs.cache-hit}}
         MLX_PATH: ./minilibx
       run: |
-          echo "cache hit: $CACHE_HIT"
-          if [[ "$CACHE_HIT" == 'false' ]]; then
+          if [[ "$CACHE_HIT" == 'true' ]]; then
+            echo "cache already exists"
+          else
             sudo apt-get update -qq -y
             sudo apt-get install -qq gcc make xorg libxext-dev libbsd-dev xvfb valgrind xdotool
             mkdir -p ~/cache-apt
